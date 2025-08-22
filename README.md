@@ -1,6 +1,8 @@
 # WordPress Development Environment with Docker
 
-A containerized WordPress development setup using Docker Compose, featuring automated permission management and integrated database administration tools.
+A containerized local WordPress development setup using Docker Compose. It includes automated permission management and integrated database administration tools for easier project setup and management.
+
+Based on [@richardevcom’s tutorial](https://medium.com/@richardevcom/wordpress-development-environment-with-docker-ba52427bdd65).
 
 ## 🚀 Features
 
