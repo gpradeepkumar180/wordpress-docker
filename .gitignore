@@ -1,0 +1,6 @@
+**/*.env
+
+db_data
+
+wp-content/*
+!wp-content/.gitkeep

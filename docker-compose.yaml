@@ -1,0 +1,46 @@
+version: "3.6"
+services:
+  wordpress:
+    build:
+      dockerfile: Dockerfile  # image: wordpress:php8.2-apache
+    container_name: wordpress
+    volumes:
+      - ./wp-content:/var/www/html/wp-content
+    environment:
+      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_TABLE_PREFIX=wp_
+      - WORDPRESS_DB_HOST=db
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+
+  db:
+    image: mariadb:12.0.2-noble
+    container_name: db
+    volumes:
+      - ./db_data:/var/lib/mysql
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    environment:
+      - MYSQL_DATABASE=wordpress
+    env_file:
+      - .env
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.2-apache
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - 8180:80
+  
